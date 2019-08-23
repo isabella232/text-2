@@ -403,12 +403,6 @@ namespace boost { namespace text { namespace detail {
         {
             return lhs -= rhs;
         }
-        friend BOOST_TEXT_CXX14_CONSTEXPR const_repeated_chars_iterator
-        operator-(
-            difference_type lhs, const_repeated_chars_iterator rhs) noexcept
-        {
-            return rhs -= lhs;
-        }
         friend constexpr difference_type operator-(
             const_repeated_chars_iterator lhs,
             const_repeated_chars_iterator rhs) noexcept
