@@ -214,23 +214,25 @@ namespace boost { namespace text { namespace detail { namespace icu {
      * @see U8_NEXT
      * @stable ICU 2.4
      */
-    inline void U8_NEXT_UNSAFE(const uint8_t * s, int i, UChar32 & c)
+    template<typename CharIter>
+    inline void U8_NEXT_UNSAFE(CharIter s, int i, UChar32 & c)
     {
         (c) = (uint8_t)(s)[(i)++];
         if (!U8_IS_SINGLE(c)) {
             if ((c) < 0xe0) {
-                (c) = (((c)&0x1f) << 6) | ((s)[(i)++] & 0x3f);
+                (c) = (((c)&0x1f) << 6) | ((uint8_t)(s)[(i)++] & 0x3f);
             } else if ((c) < 0xf0) {
                 /* no need for (c&0xf) because the upper bits are truncated
                  * after
                  * <<12 in the cast to (UChar) */
                 (c) = (UChar)(
-                    ((c) << 12) | (((s)[i] & 0x3f) << 6) |
-                    ((s)[(i) + 1] & 0x3f));
+                    ((c) << 12) | (((uint8_t)(s)[i] & 0x3f) << 6) |
+                    ((uint8_t)(s)[(i) + 1] & 0x3f));
                 (i) += 2;
             } else {
-                (c) = (((c)&7) << 18) | (((s)[i] & 0x3f) << 12) |
-                      (((s)[(i) + 1] & 0x3f) << 6) | ((s)[(i) + 2] & 0x3f);
+                (c) = (((c)&7) << 18) | (((uint8_t)(s)[i] & 0x3f) << 12) |
+                      (((uint8_t)(s)[(i) + 1] & 0x3f) << 6) |
+                      ((uint8_t)(s)[(i) + 2] & 0x3f);
                 (i) += 3;
             }
         }
@@ -281,8 +283,9 @@ namespace boost { namespace text { namespace detail { namespace icu {
      * would fail to compile).
      * @internal
      */
+    template<typename CharIter>
     inline UChar32 utf8_prevCharSafeBody(
-        const uint8_t * s, int32_t start, int32_t * pi, UChar32 c, UBool strict)
+        CharIter s, int32_t start, int32_t * pi, UChar32 c, UBool strict)
     {
         auto errorValue = [](int32_t count, int8_t strict) -> UChar32 {
             const UChar32 utf8_errorValue[6] = {
@@ -393,11 +396,12 @@ namespace boost { namespace text { namespace detail { namespace icu {
      * @see U8_PREV_UNSAFE
      * @stable ICU 2.4
      */
-    inline void U8_PREV(const uint8_t * s, int start, int i, UChar32 & c)
+    template<typename CharIter>
+    inline void U8_PREV(CharIter s, int start, int i, UChar32 & c)
     {
         (c) = (uint8_t)(s)[--(i)];
         if (!U8_IS_SINGLE(c)) {
-            (c) = utf8_prevCharSafeBody((const uint8_t *)s, start, &(i), c, -1);
+            (c) = utf8_prevCharSafeBody(s, start, &(i), c, -1);
         }
     }
 
