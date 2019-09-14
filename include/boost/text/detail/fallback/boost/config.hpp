@@ -1,0 +1,6 @@
+#ifndef TEXT_BOOST_CONFIG_HPP
+#define TEXT_BOOST_CONFIG_HPP
+
+#define BOOST_CXX14_CONSTEXPR constexpr
+
+#endif  // TEXT_BOOST_CONFIG_HPP

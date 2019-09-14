@@ -1,6 +1,7 @@
 #ifndef BOOST_TEXT_TRIE_MAP_HPP
 #define BOOST_TEXT_TRIE_MAP_HPP
 
+#include <boost/assert.hpp>
 #include <boost/text/trie.hpp>
 
 

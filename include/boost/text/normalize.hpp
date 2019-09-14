@@ -19,7 +19,7 @@ namespace boost { namespace text {
 
     namespace detail {
 
-        template<typename Iter, std::size_t Capacity>
+        template<typename Iter, std::size_t Capacity = 0>
         void order_canonically(
             Iter first,
             Iter last,

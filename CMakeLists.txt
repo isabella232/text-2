@@ -5,7 +5,7 @@ project(boost_text)
 ################################################## 
 # C++ standard version selection
 ################################################## 
-set(CXX_STD 14 CACHE STRING "Set to 11 or 14 to enable C++11 or C++14 builds, respectively.")
+set(CXX_STD 17 CACHE STRING "Set to 11 or 14 to enable C++11 or C++14 builds, respectively.")
 message("-- Using -std=c++${CXX_STD}")
 
 
@@ -59,6 +59,8 @@ set(BUILD_EDITOR false CACHE BOOL "Set to true to build ncurses-based text edito
 if (BUILD_EDITOR)
     set(boost_components filesystem system)
 endif()
+
+option(TEXT_USE_BOOST "Use boost libraries." ON)
 
 include(dependencies)
 
