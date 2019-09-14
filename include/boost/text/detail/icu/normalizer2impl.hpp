@@ -1360,7 +1360,8 @@ namespace boost { namespace text { namespace detail { namespace icu {
                     // Jamo L: E1 84 80..92
                     // Jamo V: E1 85 A1..B5
                     // Jamo T: E1 86 A8..E1 87 82
-                    BOOST_ASSERT((src - prevSrc) == 3 && *prevSrc == 0xe1);
+                    BOOST_ASSERT(
+                        (src - prevSrc) == 3 && (uint8_t)*prevSrc == 0xe1);
                     UChar32 prev = previousHangulOrJamo(prevBoundary, prevSrc);
                     if ((uint8_t)prevSrc[1] == 0x85) {
                         // The current character is a Jamo Vowel,
